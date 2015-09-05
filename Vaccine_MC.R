@@ -33,9 +33,9 @@ for (i_sims in 1:num_sims) {
   limits = sample(10:60, 1, replace=F)
   min = min(limits)/10
   
-  # Set window max as a value between .25 to 1 bigger than minimum (in increments of .25)
-  windows = c(seq(.25,1,.25))
-  max = min + interval[sample(1:length(windows), 1)]
+  # Set window max as a value between .25 to 1.25 bigger than minimum (in increments of .25)
+  windows = c(seq(.25,1.25,.25))
+  max = min + windows[sample(1:length(windows), 1)]
   
   # Cull data to only be in window
   datums_check = datums_vaccine[datums_vaccine$pre>=min & datums_vaccine$pre<=max,] 
