@@ -33,8 +33,8 @@ for (i_sims in 1:num_sims) {
   limits = sample(10:60, 1, replace=F)
   min = min(limits)/10
   
-  # Set window max as value .25 to 1.25 bigger than minimum (in increments of .25)
-  max = min + c(.25,.5,.75)[sample(1:3, 1)]
+  # Set window max as a value between .25 to 1.25 bigger than minimum (in increments of .25)
+  max = min + c(.5)[sample(1:1, 1)]
   
   # Cull data to only be in window
   datums_check = datums_vaccine[datums_vaccine$pre>=min & datums_vaccine$pre<=max,] 
@@ -94,6 +94,6 @@ datums[3,2] = mean(autism_control) - ci$norm[2]
 
 # Plot
 ggplot(datums, aes(x=condition, y=mean)) +
-  geom_line() +
   geom_errorbar(width=.1, aes(ymin=mean-ci, ymax=mean+ci)) +
-  geom_point(shape=21, size=3, fill="white")
+  geom_point(shape=21, size=4, fill="white")
+
