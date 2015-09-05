@@ -1,15 +1,19 @@
+# Uncomment and run these if you don't have the packages installed
+#install.packages('boot')
+#install.packages('ggplot2')
+
+# Load required packages
 library(boot)
 library(ggplot2)
 
-# Read in data
-setwd("~/Desktop")
+# Read in data 
+setwd("~/Desktop") # Set this to where you put the data file.
 datums_vaccine = read.table("Vaccine_Data.txt", header = TRUE)
 datums_vaccine$diff = datums_vaccine$post - datums_vaccine$pre
 
 num_sims <- 100000
 
 # Initialize matrices/data.frames
-
 datums <- data.frame(matrix(ncol = 3, nrow = 3))
 rownames(datums) <- c("treat_autism", "treat_control","autism_control")
 colnames(datums) <- c("mean", "ci","condition")
@@ -23,7 +27,6 @@ treat_control <- matrix(NA, nrow = num_sims, ncol=1)
 autism_control <- matrix(NA, nrow = num_sims, ncol=1)
 
 # Run simulations
-
 for (i_sims in 1:num_sims) {
   
   # Get a number between 1 and 6, in .1 increments for window minimum
@@ -31,7 +34,7 @@ for (i_sims in 1:num_sims) {
   min = min(limits)/10
   
   # Set window max as value .25 to 1.25 bigger than minimum (in increments of .25)
-  max = min + c(.25,.5,.75,1)[sample(1:4, 1)]
+  max = min + c(.25,.5,.75)[sample(1:3, 1)]
   
   # Cull data to only be in window
   datums_check = datums_vaccine[datums_vaccine$pre>=min & datums_vaccine$pre<=max,] 
